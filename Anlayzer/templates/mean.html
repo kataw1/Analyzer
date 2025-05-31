@@ -1,0 +1,152 @@
+{% load static %} <!--to show css from django-->
+<html>
+
+
+  <head><!-- CSS FILES-->
+    <link rel="stylesheet" type="text/css" href="{% static 'css.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap">
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/128/2782/2782163.png" type="image/x-icon">
+    <style>
+      
+    </style>
+  </head>
+
+<body>
+
+    <!-- The menu bar -->
+    <nav class="navbar">
+      <a class="brand" href="{% url 'home' %}"><img src="https://cdn-icons-png.flaticon.com/128/2782/2782163.png" style="width: 50px; height: 50px;"></a>
+      <ul>
+          <li>
+              <a href="{% url 'home' %}">Analyzer</a>
+          </li>
+          <li>
+              <a href="{% url 'aboutus' %}">About</a>
+          </li>
+          {% if user.is_authenticated %}
+          <li>
+              <a href="{% url 'services' %}">Services</a>
+          </li>
+          {% if is_premium %}
+          <li>
+            <a href="{% url 'summarize_pdf' %}">Premium Services</a>
+          </li>
+          {%else%}
+          <li>
+            <a href="{% url 'payment' %}">Premium Services</a>
+          </li>
+          {%endif%}
+          {% else %}
+          <li>
+              <a href="#" onclick="alert('Please sign in to access this page.'); return false;">Services</a>
+          </li>
+          {% endif %}
+          <li>
+              <a href="{% url 'contact' %}">Contact</a>
+          </li>
+          <li>
+              <a href="{% url 'login' %}">Login</a>
+          </li>
+
+      </ul>
+      <!--Icons or Right-->
+      <div style="margin-left: auto; padding: 15px; display: flex; align-items: center;">
+          
+          <div style="display: flex; align-items: center;">
+            {% if user.is_superuser %} <!--Django for admin-->
+              <a class="" href="{% url 'admin:index' %}" style="padding: 10px;"><img src="https://cdn-icons-png.flaticon.com/128/3281/3281355.png" style="width: 50px; height: 50px;"></a>
+              {% endif %}
+              {% if user.is_authenticated %}<!--Django for Welcome user and logout-->
+              <p style="padding: 10px; margin: 0; font-weight: bold;">Hello {{user.username}}</p>
+              <a class="" href="{% url 'logout' %}" style="padding: 10px;"><img src="https://cdn-icons-png.flaticon.com/128/12518/12518367.png" style="width: 50px; height: 50px;"></a>
+              {%endif%}
+          </div>
+          
+          <a class="" href="#" style="padding: 10px;"><img src="https://cdn-icons-png.flaticon.com/128/2318/2318736.png" style="width: 50px; height: 50px;"></a>
+          <a class="" href="#" style="padding: 10px;"><img src="https://cdn-icons-png.flaticon.com/128/1162/1162914.png" style="width: 50px; height: 50px;"></a>
+          <a class="" href="#" style="padding: 10px;"><img src="https://cdn-icons-png.flaticon.com/128/2041/2041814.png" style="width: 50px; height: 50px;"></a>
+          <a class="" href="#" style="padding: 10px;"><img src="https://cdn-icons-png.flaticon.com/128/1055/1055644.png" style="width: 50px; height: 50px;"></a>
+      </div>
+  </nav>
+  
+
+    <br>
+    
+
+    <!-- The form for excel file -->
+
+        
+      <div style="display: flex; padding: 10px;">
+        <!--The Note box-->
+        <div class="notes">
+        <h3>Note:</h3>
+        <div style="margin: 10px; font-size: 20px;"> <p> 1- If you want to show graph (mean,median,std) you can show them in same graph</p></div>
+        <div style="margin: 10px; font-size: 20px;"> <p> 2- Use only numbers Check your columns dont have any strings</p></div>
+        </div>
+
+        <!--The Form-->
+        
+          <form method="POST" enctype="multipart/form-data" class="formTools" >
+            {% csrf_token %}
+            <label for="file">Select Excel File:</label>
+            <input type="file" name="file" id="file" class="button2" required>
+            <br><br>
+            <label for="column">Enter Column Name:</label>
+            <input type="text" name="column" id="column" required>
+            <br><br>
+            <label for="calculations">Select Calculations:</label>
+            <br>
+            <input type="checkbox" name="calculations" value="mean"> Mean
+            <br>
+            <input type="checkbox" name="calculations" value="median"> Median
+            <br>
+            <input type="checkbox" name="calculations" value="mode"> Mode
+            <br>
+            <input type="checkbox" name="calculations" value="zscore"> Z-Score
+            <br>
+            <input type="checkbox" name="calculations" value="std">Standard Deviation
+            <br><br>
+            <input type="checkbox" name="include_graph" value="include_graph"> Include Graph
+            <br><br>
+            <button type="submit" value="Calculate">Calculate</button>
+        </form>
+      </div>
+        
+        
+        <!--The Result for User-->
+        <div style="align-items: center; text-align: center; margin-top: 30px;">
+          <h1>The Result Will Show Below <img src="https://cdn-icons-png.flaticon.com/128/8997/8997995.png" style="width: 50px; height: 50px;"></h1>
+          <hr><br><br>
+
+
+        {% if result %}
+            <h2>Result:</h2>
+            {% for key, value in result.items %}
+                <p style="font-weight: bold;">{{ key }}: {{ value }}</p>
+            {% endfor %}
+            {% if graph_image %}
+                <h2>Graph:</h2>
+                <img src="data:image/png;base64,{{ graph_image }}" alt="Graph">
+            {% endif %}
+        {% endif %}
+        </div>
+
+        <!--Error Hanlding-->
+
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li style="color: red; font-weight: bold;" {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+
+
+
+
+       
+    </body>
+    
+</html>

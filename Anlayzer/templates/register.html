@@ -1,0 +1,291 @@
+{% load static %} <!--to show css from django-->
+<html>
+
+
+  <head>
+    <link rel="stylesheet" type="text/css" href="{% static 'css.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap">
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/128/2782/2782163.png" type="image/x-icon">
+
+    <style>
+	body{
+		font-family:Work Sans, sans-serif;
+		background-image: 'https://cdn.dribbble.com/users/1068771/screenshots/14225432/media/0da8c461ba3920a8c827d864a6e051ed.jpg';
+		
+	}
+    
+    .main {
+        background-color: #FFFFFF;
+        width: 400px;
+        height: 520px;
+        margin: 7em auto;
+        border-radius: 1.5em;
+        box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
+    }
+    
+    .sign {
+        padding-top: 40px;
+        color: #8C55AA;
+        font-family: 'Ubuntu', sans-serif;
+        font-weight: bold;
+        font-size: 23px;
+    }
+    
+    .un {
+    width: 76%;
+    color: rgb(38, 50, 56);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 1px;
+    background: rgba(136, 126, 126, 0.04);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    outline: none;
+    box-sizing: border-box;
+    border: 2px solid rgba(0, 0, 0, 0.02);
+    margin-bottom: 50px;
+    margin-left: 46px;
+    text-align: center;
+    margin-bottom: 27px;
+    font-family: 'Ubuntu', sans-serif;
+    }
+    
+    form.form1 {
+        padding-top: 40px;
+    }
+    
+    .pass {
+            width: 76%;
+    color: rgb(38, 50, 56);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 1px;
+    background: rgba(136, 126, 126, 0.04);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    outline: none;
+    box-sizing: border-box;
+    border: 2px solid rgba(0, 0, 0, 0.02);
+    margin-bottom: 50px;
+    margin-left: 46px;
+    text-align: center;
+    margin-bottom: 27px;
+    font-family: 'Ubuntu', sans-serif;
+    }
+    
+   
+    .un:focus, .pass:focus {
+        border: 2px solid rgba(0, 0, 0, 0.18) !important;
+        
+    }
+    
+    .submit {
+      cursor: pointer;
+        border-radius: 5em;
+        color: #fff;
+        background: linear-gradient(to right, #9C27B0, #E040FB);
+        border: 0;
+        padding-left: 40px;
+        padding-right: 40px;
+        padding-bottom: 10px;
+        padding-top: 10px;
+        font-family: 'Ubuntu', sans-serif;
+        margin-left: 35%;
+        font-size: 13px;
+        box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.04);
+    }
+    
+    .forgot {
+        text-shadow: 0px 0px 3px rgba(117, 117, 117, 0.12);
+        color: #E1BEE7;
+        padding-top: 15px;
+    }
+    
+    a {
+        text-shadow: 0px 0px 3px rgba(117, 117, 117, 0.12);
+        color: #E1BEE7;
+        text-decoration: none
+    }
+    
+    @media (max-width: 600px) {
+        .main {
+            border-radius: 0px;
+        }}
+		
+		.error-message {
+            color: red;
+            margin-bottom: 10px;
+        } 
+
+
+    </style>
+  </head>
+<body> 
+    <!-- The menu bar -->
+    <nav class="navbar">
+      <a class="brand" href="{% url 'home' %}"><img src="https://cdn-icons-png.flaticon.com/128/2782/2782163.png" style="width: 50px; height: 50px;"></a>
+      <ul>
+          <li>
+              <a href="{% url 'home' %}">Analyzer</a>
+          </li>
+          <li>
+              <a href="{% url 'aboutus' %}">About</a>
+          </li>
+          {% if user.is_authenticated %}
+          <li>
+              <a href="{% url 'services' %}">Services</a>
+          </li>
+          {% if is_premium %}
+          <li>
+            <a href="{% url 'summarize_pdf' %}">Premium Services</a>
+          </li>
+          {%else%}
+          <li>
+            <a href="{% url 'payment' %}">Premium Services</a>
+          </li>
+          {%endif%}
+          {% else %}
+          <li>
+              <a href="#" onclick="alert('Please sign in to access this page.'); return false;">Services</a>
+          </li>
+          {% endif %}
+          <li>
+              <a href="{% url 'contact' %}">Contact</a>
+          </li>
+          <li>
+              <a href="{% url 'login' %}">Login</a>
+          </li>
+
+      </ul>
+      <!--Icons or Right-->
+      <div style="margin-left: auto; padding: 15px; display: flex; align-items: center;">
+          
+          <div style="display: flex; align-items: center;">
+            {% if user.is_superuser %} <!--Django for admin-->
+              <a class="" href="{% url 'admin:index' %}" style="padding: 10px;"><img src="https://cdn-icons-png.flaticon.com/128/3281/3281355.png" style="width: 50px; height: 50px;"></a>
+              {% endif %}
+              {% if user.is_authenticated %}<!--Django for Welcome user and logout-->
+              <p style="padding: 10px; margin: 0; font-weight: bold;">Hello {{user.username}}</p>
+              <a class="" href="{% url 'logout' %}" style="padding: 10px;"><img src="https://cdn-icons-png.flaticon.com/128/12518/12518367.png" style="width: 50px; height: 50px;"></a>
+              {%endif%}
+          </div>
+          
+          <a class="" href="#" style="padding: 10px;"><img src="https://cdn-icons-png.flaticon.com/128/2318/2318736.png" style="width: 50px; height: 50px;"></a>
+          <a class="" href="#" style="padding: 10px;"><img src="https://cdn-icons-png.flaticon.com/128/1162/1162914.png" style="width: 50px; height: 50px;"></a>
+          <a class="" href="#" style="padding: 10px;"><img src="https://cdn-icons-png.flaticon.com/128/2041/2041814.png" style="width: 50px; height: 50px;"></a>
+          <a class="" href="#" style="padding: 10px;"><img src="https://cdn-icons-png.flaticon.com/128/1055/1055644.png" style="width: 50px; height: 50px;"></a>
+      </div>
+  </nav>
+
+     
+     <!--SignUp Form-->
+  
+     <center><h1 style="color: blueviolet; font-size: 50px; font-family: 'Work Sans', sans-serif; padding: 15px;">Join Us  <img src="https://cdn-icons-png.flaticon.com/128/3337/3337247.png" width="50x" height="50px"></h1></center>
+	
+
+	 <div class="main">
+		<p class="sign" align="center">Sign Up</p>
+
+		<form class="form1" action="register" method="Post">
+			{% csrf_token %}
+		  <input class="un " type="text" align="center" placeholder="Username" name="username" required>
+          <input class="un " type="text" align="center" placeholder="E-Mail" name="email" required>
+		  <input class="pass" type="password" align="center" placeholder="Password" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
+          <input class="pass" type="password" align="center" placeholder="Repeat Password" name="password2" required>
+		  <button class="submit">Sign Up</button>
+		  <p class="forgot" align="center"><a href="{% url 'login' %}">You already have account ?</p>
+        
+<!--Error Hanlding-->
+{% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li style="color: red; font-weight: bold;" {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+					
+		</div>
+
+
+
+
+<script>
+  function validatePassword() {
+      var passwordInput = document.getElementById('password');
+      var password = passwordInput.value;
+      var passwordError = document.getElementById('passwordError');
+      var minLength = 8; // Minimum length required for the password
+
+      if (password.length < minLength) {
+          passwordError.textContent = 'Password must be at least ' + minLength + ' characters long.';
+          passwordInput.setCustomValidity('Password must be at least ' + minLength + ' characters long.');
+      } else {
+          passwordError.textContent = '';
+          passwordInput.setCustomValidity('');
+      }
+  }
+
+  // Optional: You can also validate on form submit
+  document.getElementById('myForm').onsubmit = function() {
+      validatePassword();
+      // Other form submission logic if needed
+  };
+</script>
+
+
+
+
+<!--FOOTER Code-->
+
+
+<footer class="footer">
+	<div class="container_footer">
+	  <div class="row">
+		<div class="footer-col">
+		  <h4>Analyzer</h4>
+		  <ul>
+			<li><a href="#">about us</a></li>
+			<li><a href="#">our services</a></li>
+			<li><a href="#">privacy policy</a></li>
+			<li><a href="#">affiliate program</a></li>
+		  </ul>
+		</div>
+		<div class="footer-col">
+		  <h4>get help</h4>
+		  <ul>
+			<li><a href="#">FAQ</a></li>
+			<li><a href="#">Work with us</a></li>
+			<li><a href="#">returns</a></li>
+			<li><a href="#">order status</a></li>
+			
+		  </ul>
+		</div>
+		<div class="footer-col">
+		  <h4>Tools</h4>
+		  <ul>
+			<li><a href="#">About tools</a></li>
+			<li><a href="#">What we do ?</a></li>
+			<li><a href="#">did we save your data ?</a></li>
+			<li><a href="#">Security of your data</a></li>
+		  </ul>
+		</div>
+  
+		<div class="footer-col">
+		  <h4>Follow Us</h4>
+		  <ul style="display: flex; margin:10px ;">
+			<li style="margin:10px ;"><a href="#"><img src="https://cdn-icons-png.flaticon.com/128/1312/1312139.png" width="30px" height="30px"></a></li>
+			<li style="margin:10px ;"><a href="#"><img src="https://cdn-icons-png.flaticon.com/128/3955/3955024.png" width="30px" height="30px"></a></li>
+			<li style="margin:10px ;"><a href="#"><img src="https://cdn-icons-png.flaticon.com/128/1377/1377213.png" width="30px" height="30px"></a></li>
+			<li style="margin:10px ;"><a href="#"><img src="https://cdn-icons-png.flaticon.com/128/5969/5969020.png" width="30px" height="30px"></a></li>
+		  </ul>
+  
+  
+		
+	  </div>
+	</div>
+  </footer>
+</body>
+</html>

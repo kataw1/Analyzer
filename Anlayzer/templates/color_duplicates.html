@@ -1,0 +1,122 @@
+{% load static %} <!--to show css from django-->
+<html>
+
+
+  <head><!-- CSS FILES-->
+    <link rel="stylesheet" type="text/css" href="{% static 'css.css' %}">
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/128/2782/2782163.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap">
+
+    <style>
+    </style>
+  </head>
+
+<body>
+
+<!-- The menu bar -->
+<!-- The menu bar -->
+<nav class="navbar">
+  <a class="brand" href="{% url 'home' %}"><img src="https://cdn-icons-png.flaticon.com/128/2782/2782163.png" style="width: 50px; height: 50px;"></a>
+  <ul>
+      <li>
+          <a href="{% url 'home' %}">Analyzer</a>
+      </li>
+      <li>
+          <a href="{% url 'aboutus' %}">About</a>
+      </li>
+      {% if user.is_authenticated %}
+      <li>
+          <a href="{% url 'services' %}">Services</a>
+      </li>
+      {% if is_premium %}
+      <li>
+        <a href="{% url 'summarize_pdf' %}">Premium Services</a>
+      </li>
+      {%else%}
+      <li>
+        <a href="{% url 'payment' %}">Premium Services</a>
+      </li>
+      {%endif%}
+      {% else %}
+      <li>
+          <a href="#" onclick="alert('Please sign in to access this page.'); return false;">Services</a>
+      </li>
+      {% endif %}
+      <li>
+          <a href="{% url 'contact' %}">Contact</a>
+      </li>
+      <li>
+          <a href="{% url 'login' %}">Login</a>
+      </li>
+
+  </ul>
+  <!--Icons or Right-->
+  <div style="margin-left: auto; padding: 15px; display: flex; align-items: center;">
+      
+      <div style="display: flex; align-items: center;">
+        {% if user.is_superuser %} <!--Django for admin-->
+          <a class="" href="{% url 'admin:index' %}" style="padding: 10px;"><img src="https://cdn-icons-png.flaticon.com/128/3281/3281355.png" style="width: 50px; height: 50px;"></a>
+          {% endif %}
+          {% if user.is_authenticated %}<!--Django for Welcome user and logout-->
+          <p style="padding: 10px; margin: 0; font-weight: bold;">Hello {{user.username}}</p>
+          <a class="" href="{% url 'logout' %}" style="padding: 10px;"><img src="https://cdn-icons-png.flaticon.com/128/12518/12518367.png" style="width: 50px; height: 50px;"></a>
+          {%endif%}
+      </div>
+      
+      <a class="" href="#" style="padding: 10px;"><img src="https://cdn-icons-png.flaticon.com/128/2318/2318736.png" style="width: 50px; height: 50px;"></a>
+      <a class="" href="#" style="padding: 10px;"><img src="https://cdn-icons-png.flaticon.com/128/1162/1162914.png" style="width: 50px; height: 50px;"></a>
+      <a class="" href="#" style="padding: 10px;"><img src="https://cdn-icons-png.flaticon.com/128/2041/2041814.png" style="width: 50px; height: 50px;"></a>
+      <a class="" href="#" style="padding: 10px;"><img src="https://cdn-icons-png.flaticon.com/128/1055/1055644.png" style="width: 50px; height: 50px;"></a>
+  </div>
+</nav>
+
+    <br>
+
+
+
+    <div style="display: flex; padding: 10px;">
+      
+    
+        <!--Notes-->
+          <div class="notes">   
+            <h3>Notes:</h3>
+            <div style="margin: 10px; font-size: 20px;"><p>Enter the column name and Enjoy the Tool</p></div>
+          </div>
+
+
+
+        
+        <!--Form Service-->
+        <form method="post" enctype="multipart/form-data" class="formTools" style="width: 400px; text-align: center;">
+        {% csrf_token %}
+            <label for="file">Select Excel file:</label>
+            <input type="file" name="file" id="file" class="button2" required><br><br>
+            <label for="column_name">Column Name:</label>
+            <input type="text" name="column_name" id="column_name" required><br><br>
+            <button type="submit">Upload and Color Duplicates</button>
+        </form>
+
+
+    </div>
+
+
+
+
+
+    <hr>
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li style="color: red; font-weight: bold;" {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <!--The Good luck-->
+  <h1 style="text-align: center; font-size: 90px; margin-top: 90px;">GOOD LUCK <img src="https://cdn-icons-png.flaticon.com/128/10393/10393244.png" style="width: 90px; height: 90px;"></h1>
+
+
+
+
+</body>
+</html>

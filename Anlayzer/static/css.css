@@ -1,0 +1,354 @@
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+.form-container {
+  animation: fade-in 0.8s ease-in-out;
+}
+
+  body {
+    background-color: #FFF7FC;
+    color: black;
+    font-family: 'Work Sans', sans-serif
+
+    
+  
+  }
+  
+  .form {
+    width: 300px;
+    margin:  auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    border-radius: 8%;
+  }
+
+
+  
+  label {
+    display: block;
+    margin-bottom: 10px;
+    color: #333;
+    font-weight: bold;
+  }
+  
+  input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 14px;
+  }
+  
+  button[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 8px 16px;
+    margin-top: 15px;
+    background-color: #6420AA;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #0aa7d6;
+  }
+  
+  /* for form in form page */
+
+
+
+
+
+  /* Menu bar styles */
+  
+  a {
+    text-decoration: none;
+    font-size: 15px;
+    font-family: 'Work Sans', sans-serif;
+  }
+  
+  .navbar {
+    background-color: #615EFC;
+    display: flex;
+    /* let's align the items so everything is nice and centered */
+    align-items: center;
+    height: 70px;
+    
+  }
+  
+  /* We want all links in the navbar to be #e7e7e7 */
+  .navbar a {
+    color: #e7e7e7;
+  }
+  
+  .navbar ul {
+   /* Let's reset the margin and padding of the list so it's is flush. */
+    margin: 0;
+    padding: 0;
+    /* Let's remove the bullet points */
+    list-style-type: none;
+    /* display the list flex and align the items centered */
+    display: flex;
+    align-items:center;
+  }
+  
+  .navbar .brand {
+    /*Let's make the anchor display block.
+       This will ensure when we get the full width of the container.
+    */
+    display: block;
+    color: #e7e7e7;
+   /* Remove padding from top/bottom and add 24px padding right/left */
+    padding: 0 24px;
+    font-size: 24px;
+    
+  }
+  
+  .navbar ul li a {
+    color: #e7e7e7;
+    padding: 24px;
+    /*Let's make the anchor display block.
+       This will ensure when we hover, focus, or is active we get the full width and height 
+        of the container.
+    */
+    display: block;
+  }
+  
+  /* When a use hovers or focuses a link change the background */
+  .navbar ul a:hover,
+  .navbar ul a:focus {
+    background-color: #272727;
+  }
+
+
+
+
+
+
+
+
+.button2 {
+  display: block;
+  width: 100%;
+  padding: 8px 16px;
+  margin-top: 15px;
+  background-color: #6420AA;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+/*All of this just for Slider*/
+
+
+
+* {box-sizing: border-box;}
+
+.mySlides {display: none;}
+img {vertical-align: middle;}
+
+/* Slideshow container */
+
+.slideshow-container {
+  position: relative;
+  margin: auto;
+}
+
+/* Caption text */
+.text {
+  color: #0832eb;
+  font-size: 50px;
+  padding: 8px 12px;
+  position: center;
+  bottom: 8px;
+  width: 100%;
+  text-align: center;
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+/* The dots/bullets/indicators */
+.dot {
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active {
+  background-color: #717171;
+}
+
+/* Fading animation */
+.fade {
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+
+/* On smaller screens, decrease text size */
+@media only screen and (max-width: 350px) {
+  .text {font-size: 11px}
+}
+
+
+
+
+/* Footer Css */
+
+
+
+
+.container_footer{
+	max-width: 1170px;
+	margin:auto;
+}
+.row{
+	display: flex;
+	flex-wrap: wrap;
+}
+ul{
+	list-style: none;
+}
+.footer{
+	background-color: #26355D;
+    padding: 70px 0;
+}
+.footer-col{
+   width: 25%;
+   padding: 0 15px;
+}
+.footer-col h4{
+	font-size: 18px;
+	color: #ffffff;
+	text-transform: capitalize;
+	margin-bottom: 35px;
+	font-weight: 500;
+	position: relative;
+}
+.footer-col h4::before{
+	content: '';
+	position: absolute;
+	left:0;
+	bottom: -10px;
+	background-color: #e91e63;
+	height: 2px;
+	box-sizing: border-box;
+	width: 50px;
+}
+.footer-col ul li:not(:last-child){
+	margin-bottom: 10px;
+}
+.footer-col ul li a{
+	font-size: 16px;
+	text-transform: capitalize;
+	color: #ffffff;
+	text-decoration: none;
+	font-weight: 300;
+	color: #bbbbbb;
+	display: block;
+	transition: all 0.3s ease;
+}
+.footer-col ul li a:hover{
+	color: #ffffff;
+	padding-left: 8px;
+}
+.footer-col .social-links a{
+	display: inline-block;
+	height: 40px;
+	width: 40px;
+	background-color: rgba(255,255,255,0.2);
+	margin:0 10px 10px 0;
+	text-align: center;
+	line-height: 40px;
+	border-radius: 50%;
+	color: #ffffff;
+	transition: all 0.5s ease;
+}
+.footer-col .social-links a:hover{
+	color: #24262b;
+	background-color: #ffffff;
+}
+
+/*responsive*/
+@media(max-width: 767px){
+  .footer-col{
+    width: 50%;
+    margin-bottom: 30px;
+}
+}
+@media(max-width: 574px){
+  .footer-col{
+    width: 100%;
+}
+}
+
+
+
+/*______________For Forms To use Tools________________*/
+
+.formTools {
+  width: 300px;
+  margin:  30px;
+  margin-left: 400px;
+  padding: 20px;
+  border: 1px solid black;
+  background-color: #fff;
+  border-radius: 8%;
+  align-items: center;
+  box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
+}
+
+
+/*for notes*/
+
+.notes{
+  border: #333;
+  border-style:groove;
+  margin: 10px;
+  padding: 30px;
+  border-color: #333;
+  width: 350px;
+  height: 300px;
+  border-radius: 20%;
+  background-color: #8FBC8F;
+  box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
+
+}
+.notes h3{
+  font-size: 30px;
+}

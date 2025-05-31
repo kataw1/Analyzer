@@ -1,0 +1,116 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload Excel File and Specify Columns to Fill</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" type="text/css" href="{% static 'css.css' %}">
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/128/2782/2782163.png" type="image/x-icon">
+
+</head>
+<body> 
+       <!-- The menu bar -->
+       <nav class="navbar">
+        <a class="brand" href="{% url 'home' %}"><img src="https://cdn-icons-png.flaticon.com/128/2782/2782163.png" style="width: 50px; height: 50px;"></a>
+        <ul>
+            <li>
+                <a href="{% url 'home' %}">Analyzer</a>
+            </li>
+            <li>
+                <a href="{% url 'aboutus' %}">About</a>
+            </li>
+            {% if user.is_authenticated %}
+            <li>
+                <a href="{% url 'services' %}">Services</a>
+            </li>
+            {% if is_premium %}
+            <li>
+              <a href="{% url 'summarize_pdf' %}">Premium Services</a>
+            </li>
+            {%else%}
+            <li>
+              <a href="{% url 'payment' %}">Premium Services</a>
+            </li>
+            {%endif%}
+            {% else %}
+            <li>
+                <a href="#" onclick="alert('Please sign in to access this page.'); return false;">Services</a>
+            </li>
+            {% endif %}
+            <li>
+                <a href="{% url 'contact' %}">Contact</a>
+            </li>
+            <li>
+                <a href="{% url 'login' %}">Login</a>
+            </li>
+  
+        </ul>
+        <!--Icons or Right-->
+        <div style="margin-left: auto; padding: 15px; display: flex; align-items: center;">
+            
+            <div style="display: flex; align-items: center;">
+              {% if user.is_superuser %} <!--Django for admin-->
+                <a class="" href="{% url 'admin:index' %}" style="padding: 10px;"><img src="https://cdn-icons-png.flaticon.com/128/3281/3281355.png" style="width: 50px; height: 50px;"></a>
+                {% endif %}
+                {% if user.is_authenticated %}<!--Django for Welcome user and logout-->
+                <p style="padding: 10px; margin: 0; font-weight: bold;">Hello {{user.username}}</p>
+                <a class="" href="{% url 'logout' %}" style="padding: 10px;"><img src="https://cdn-icons-png.flaticon.com/128/12518/12518367.png" style="width: 50px; height: 50px;"></a>
+                {%endif%}
+            </div>
+            
+            <a class="" href="#" style="padding: 10px;"><img src="https://cdn-icons-png.flaticon.com/128/2318/2318736.png" style="width: 50px; height: 50px;"></a>
+            <a class="" href="#" style="padding: 10px;"><img src="https://cdn-icons-png.flaticon.com/128/1162/1162914.png" style="width: 50px; height: 50px;"></a>
+            <a class="" href="#" style="padding: 10px;"><img src="https://cdn-icons-png.flaticon.com/128/2041/2041814.png" style="width: 50px; height: 50px;"></a>
+            <a class="" href="#" style="padding: 10px;"><img src="https://cdn-icons-png.flaticon.com/128/1055/1055644.png" style="width: 50px; height: 50px;"></a>
+        </div>
+    </nav>
+    
+
+    <!--Work Space-->
+    <div style="display: flex; padding: 10px;">
+    
+
+         <!--Notes-->
+         <div class="notes">
+            <h3>Note:</h3>
+            <div style="margin: 10px; font-size: 20px;"><p>Easy to understand fill empty data with the word you want.</p></div>
+            <div style="margin: 10px; font-size: 20px;"><p></p></div>
+            <div style="margin: 10px; font-size: 20px;"><p></p></div>
+          </div>
+
+        <!--form Tool-->  
+    <form method="post" enctype="multipart/form-data" class="formTools">
+        {% csrf_token %}
+        <input type="file" name="file" class="button2" required><br><br>
+        
+        <label for="column_names">Column Names:</label>
+        <input type="text" name="column_names" id="column_names" placeholder="column1, column2, column3" required><br><br>
+        
+        <label for="fill_value">Fill Value:</label>
+        <input type="text" name="fill_value" id="fill_value" required><br><br>
+        
+        <input type="submit" value="Process and Download" class="button2">
+    </form>
+
+
+
+    </div>
+
+
+
+
+<!--Error Return messege-->
+
+<hr>
+{% if messages %}
+{% for message in messages %}
+<p style="color: red; font-weight: bold;">{{ message }}</p>
+{% endfor %}
+{% endif %}
+<h1 style="text-align: center; font-size: 90px; margin-top: 90px;">GOOD LUCK <img src="https://cdn-icons-png.flaticon.com/128/10393/10393244.png" style="width: 90px; height: 90px;"></h1>
+
+            
+</body>
+</html>

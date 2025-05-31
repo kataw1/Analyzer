@@ -1,0 +1,16 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/128/2782/2782163.png" type="image/x-icon">
+    <meta charset="UTF-8">
+    <title>Activate Your Account</title>
+    
+</head>
+<body>
+    <p>Hi {{ user.username }},</p>
+    <p>Click the link below to activate your account:</p>
+    <a href="http://{{ domain }}{% url 'activate' token=token %}">Activate Account</a>
+    <p>If you did not create an account, please ignore this email.</p>
+</body>
+</html>

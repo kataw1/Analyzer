@@ -1,0 +1,328 @@
+{% load static %} <!--to show css from django-->
+<html>
+
+
+  <head>
+    <link rel="stylesheet" type="text/css" href="{% static 'css.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap">
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/128/2782/2782163.png" type="image/x-icon">
+    <style>
+      .text {
+        color: #fcfdff;
+        background-color: #26355D;
+        font-size: 50px;
+        padding: 8px 12px;
+        position: center;
+        bottom: 8px;
+        width: 100%;
+        text-align: center;
+        font-family: 'Work Sans', sans-serif;
+      }
+
+      .card {
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+        transition: 0.3s;
+        width: 20%;
+        margin: 20px;
+        border-radius: 20px;
+        border:solid 1px;
+        background-color: #fcfdff;
+      }
+
+      .card:hover {
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+      }
+
+      .container {
+        padding: 2px 16px;
+      }
+
+      .StyleForUs {
+        background-color: rgb(107, 141, 204);
+
+      }
+
+      .text_for_wedo {
+        color: #fcfdff;
+        font-size: 50px;
+        padding: 8px 12px;
+        position: center;
+        bottom: 8px;
+        width: 100%;
+        text-align: center;
+        font-family: 'Work Sans', sans-serif;
+      }
+
+      .joinus{
+        background-color: #26355D;
+        margin: 0px;
+        width: auto;
+        height: 400px;
+        text-align: left;
+        font-family: 'Work Sans', sans-serif;
+        color: #fcfdff;
+        font-size: 30px;
+      }
+
+      
+      @media (max-width: 600px) {
+        .main {
+            border-radius: 0px;
+        }}
+
+    </style>
+  </head>
+
+<body style="background-color: #615EFC;">
+    <!-- The menu bar -->
+    <nav class="navbar">
+      <a class="brand" href="{% url 'home' %}"><img src="https://cdn-icons-png.flaticon.com/128/2782/2782163.png" style="width: 50px; height: 50px;"></a>
+      <ul>
+          <li>
+              <a href="{% url 'home' %}">Analyzer</a>
+          </li>
+          <li>
+              <a href="{% url 'aboutus' %}">About</a>
+          </li>
+          {% if user.is_authenticated %}
+          <li>
+              <a href="{% url 'services' %}">Services</a>
+          </li>
+          {% if is_premium %}
+          <li>
+            <a href="{% url 'summarize_pdf' %}">Premium Services</a>
+          </li>
+          {%else%}
+          <li>
+            <a href="{% url 'payment' %}">Premium Services</a>
+          </li>
+          {%endif%}
+          {% else %}
+          <li>
+              <a href="#" onclick="alert('Please sign in to access this page.'); return false;">Services</a>
+          </li>
+          {% endif %}
+          <li>
+              <a href="{% url 'contact' %}">Contact</a>
+          </li>
+          <li>
+              <a href="{% url 'login' %}">Login</a>
+          </li>
+
+      </ul>
+      <!--Icons or Right-->
+      <div style="margin-left: auto; padding: 15px; display: flex; align-items: center;">
+          
+          <div style="display: flex; align-items: center;">
+            {% if user.is_superuser %} <!--Django for admin-->
+              <a class="" href="{% url 'admin:index' %}" style="padding: 10px;"><img src="https://cdn-icons-png.flaticon.com/128/3281/3281355.png" style="width: 50px; height: 50px;"></a>
+              {% endif %}
+              {% if user.is_authenticated %}<!--Django for Welcome user and logout-->
+              <p style="padding: 10px; margin: 0; font-weight: bold;">Hello {{user.username}}</p>
+              <a class="" href="{% url 'logout' %}" style="padding: 10px;"><img src="https://cdn-icons-png.flaticon.com/128/12518/12518367.png" style="width: 50px; height: 50px;"></a>
+              {%endif%}
+          </div>
+          
+          <a class="" href="#" style="padding: 10px;"><img src="https://cdn-icons-png.flaticon.com/128/2318/2318736.png" style="width: 50px; height: 50px;"></a>
+          <a class="" href="#" style="padding: 10px;"><img src="https://cdn-icons-png.flaticon.com/128/1162/1162914.png" style="width: 50px; height: 50px;"></a>
+          <a class="" href="#" style="padding: 10px;"><img src="https://cdn-icons-png.flaticon.com/128/2041/2041814.png" style="width: 50px; height: 50px;"></a>
+          <a class="" href="#" style="padding: 10px;"><img src="https://cdn-icons-png.flaticon.com/128/1055/1055644.png" style="width: 50px; height: 50px;"></a>
+      </div>
+  </nav>
+  
+
+
+
+<!-- Slider Show -->
+<div class="slideshow-container">
+
+  <div class="mySlides fade">
+    <img src="https://media.istockphoto.com/id/1425235289/photo/data-analyst-working-on-business-analytics-dashboard-with-charts-metrics-and-kpi-to-analyze.jpg?s=612x612&w=0&k=20&c=fKMxXdm1SrZE9unWyLWUPPzK6RTy8OsBBaKWcpH0O4s=" style="width:100%; height:550px;">
+    <div class="text">New Features <img src="https://cdn-icons-png.flaticon.com/128/2316/2316065.png" style="width: 50px; height: 50px;"></div>
+  </div>
+
+  <div class="mySlides fade">
+    <img src="https://e0.pxfuel.com/wallpapers/220/631/desktop-wallpaper-data-analytics-data-analysis.jpg" style="width:100%; height: 550px;">
+    <div class="text">Improve Your Research <img src="https://cdn-icons-png.flaticon.com/128/5205/5205654.png" style="width: 50px; height: 50px;"></div>
+  </div>
+
+  <div class="mySlides fade">
+    <img src="https://media.istockphoto.com/id/1488294044/photo/businessman-works-on-laptop-showing-business-analytics-dashboard-with-charts-metrics-and-kpi.jpg?s=2048x2048&w=is&k=20&c=mw1ywS-cmujLOXQ-cp364oGx3fTguinNMEAONPyI66c=" style="width:100%;height: 550px;">
+    <div class="text">Achieve Your Goals <img src="https://cdn-icons-png.flaticon.com/128/2041/2041814.png" style="width: 50px; height: 50px;"></div>
+  </div>
+
+</div>
+
+<script>
+  var slideIndex = 0;
+  showSlides();
+
+  function showSlides() {
+    var i;
+    var slides = document.getElementsByClassName("mySlides");
+    for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+    }
+    slideIndex++;
+    if (slideIndex > slides.length) {slideIndex = 1}
+    slides[slideIndex-1].style.display = "block";
+    setTimeout(showSlides, 3000); // Change image every 2 seconds
+  }
+</script>
+
+
+
+
+<br><br>
+<!--Card of Services-->
+
+
+
+
+<center>
+<div class="">
+  <div style="border-style: hidden; border-radius: 0; background-color: #26355D">
+  <h1 class="text_for_wedo">What We Do ?</h1><img src="https://cdn-icons-png.flaticon.com/128/3240/3240831.png" width="90px" height="90px">
+
+
+  <div style="display: flex; margin: 20px; padding-left: 150px;">
+    <div class="card">
+      <img src="https://cdn.dribbble.com/users/1138853/screenshots/4834993/06_08_gif.gif" alt="Avatar" style="width:100%; height: 300px; border-radius: 20px 20px 0px 0px;">
+      <div class="container">
+        <h3  style="padding: 10px;"><b style=" font-family: 'Work Sans', sans-serif; font-size: 30px;">Analysis Tools</b></h3> 
+        <p style=" font-family: 'Work Sans', sans-serif; padding: 10px;">For More Productivity for More Accurate Reult You can Join us now</p> 
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://www.ismartcom.com/hubfs/ai%20gif.gif" alt="Avatar" style="width:100%; height: 300px;border-radius: 20px 20px 0px 0px;">
+      <div class="container">
+        <h3  style="padding: 10px;"><b style=" font-family: 'Work Sans', sans-serif; font-size: 30px;">AI Tools</b></h3> 
+        <p style=" font-family: 'Work Sans', sans-serif; padding: 10px;">For More Productivity for More Accurate Reult You can Use our Ai to predict your Data</p> 
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://digitalcreativemind.com/wp-content/uploads/2021/06/Analytics_amp_Data_Science.gif" alt="Avatar" style="width:100%; height: 300px; border-radius: 20px 20px 0px 0px;">
+      <div class="container">
+        <h3  style="padding: 10px;"><b style=" font-family: 'Work Sans', sans-serif;  font-size: 30px;" >Statistics Tools</b></h3> 
+        <p style=" font-family: 'Work Sans', sans-serif; padding: 10px;">For More Productivity for More Accurate Reult You can use Best metohds in Statistics</p> 
+      </div>
+    </div>
+
+
+    <div class="card">
+      <img src="https://images.squarespace-cdn.com/content/v1/55ed989ee4b0c7f115ddc924/1541600620919-VEI2IOYGNT2WJXA2W4A0/analytics.gif" alt="Avatar" style="width:100%; height: 300px; border-radius: 20px 20px 0px 0px;">
+      <div class="container">
+        <h3  style="padding: 10px;"><b style=" font-family: 'Work Sans', sans-serif;  font-size: 30px;" >Data Sceince Tools</b></h3> 
+        <p style=" font-family: 'Work Sans', sans-serif; padding: 10px;">For More Productivity for More Accurate Reult You can use Best metohds in Data Sceince</p> 
+      </div>
+    </div>
+  </div>
+
+  
+
+
+
+</div>
+</div>  
+</center>
+
+
+<br>
+<!--somthing to add-->
+
+
+<div class="joinus">
+  <h1 style="margin-left:30px ;">Why You shoud Join us ?</h1>
+    <div style="display: flex; float: left; padding: 5px; font-size: 15px; max-width: 1200px; margin-top: 50px; margin-left: 30px;">
+      <h1>"By signing up with Analyzer website, you gain access to a suite of advanced data analysis tools and resources that enable you to unlock valuable insights from your data. Our platform empowers you to make informed decisions, identify trends, and drive growth in your business."</h1>
+      
+    </div>
+    
+  <div style="display:flex;float: right; margin-right:100px;">
+  <img src="https://www.bing.com/th/id/OGC.91168b4873f6659b3e9fdfe4b89cd864?pid=1.7&rurl=https%3a%2f%2fcapturly.com%2fblog%2fwp-content%2fuploads%2f2018%2f02%2fData-Website-Analytics.gif&ehk=R5KHvXhloUbZ3hcZAlGbWBB6zM72RZubk6Ck5OzkTBI%3d" width="300px" height="300px" style="border-radius: 50%;">
+  </div>
+
+  <div style="display: flex; float: left; margin-left: 50px; margin-top: 30px;"><a href="{% url 'register' %}" style="font-size: 50px; color: aliceblue; background-color: rgb(92, 92, 148); border-radius: 20%;">SignUp Now</a></div>
+</div>
+
+
+
+
+
+<!--Signup invitation-->
+{% if user.is_anonymous %}
+  <script>
+    // Function to show the signup alert after 10 seconds
+    setTimeout(function() {
+        alert("Please sign up to Use our tools.");
+        // Redirect to the signup page after showing the alert
+        window.location.href = "{% url 'register' %}";
+    }, 10000); // 10 seconds delay
+  </script>
+{% endif %}
+
+
+
+
+
+
+
+
+<br><br>
+<!--FOOTER Code-->
+
+
+<footer class="footer">
+  <div class="container_footer">
+    <div class="row">
+      <div class="footer-col">
+        <h4>Analyzer</h4>
+        <ul>
+          <li><a href="#">about us</a></li>
+          <li><a href="#">our services</a></li>
+          <li><a href="#">privacy policy</a></li>
+          <li><a href="#">affiliate program</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>get help</h4>
+        <ul>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Work with us</a></li>
+          <li><a href="#">returns</a></li>
+          <li><a href="#">order status</a></li>
+          
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Tools</h4>
+        <ul>
+          <li><a href="#">About tools</a></li>
+          <li><a href="#">What we do ?</a></li>
+          <li><a href="#">did we save your data ?</a></li>
+          <li><a href="#">Security of your data</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Follow Us</h4>
+        <ul style="display: flex; margin:10px ;">
+          <li style="margin:10px ;"><a href="#"><img src="https://cdn-icons-png.flaticon.com/128/1312/1312139.png" width="30px" height="30px"></a></li>
+          <li style="margin:10px ;"><a href="#"><img src="https://cdn-icons-png.flaticon.com/128/3955/3955024.png" width="30px" height="30px"></a></li>
+          <li style="margin:10px ;"><a href="#"><img src="https://cdn-icons-png.flaticon.com/128/1377/1377213.png" width="30px" height="30px"></a></li>
+          <li style="margin:10px ;"><a href="#"><img src="https://cdn-icons-png.flaticon.com/128/5969/5969020.png" width="30px" height="30px"></a></li>
+        </ul>
+
+
+      
+    </div>
+  </div>
+</footer>
+
+
+
+</body>    
+</html>

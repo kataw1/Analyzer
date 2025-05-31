@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+{% load static %} <!--to show css from django-->
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="{% static 'css.css' %}">
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/128/2782/2782163.png" type="image/x-icon">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap">
+
+  <style>
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .card {
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      margin: 10px;
+      width: 300px;
+      overflow: hidden;
+      flex: 0 0 calc(20% - 20px);
+    }
+
+    .card img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px 8px 0 0;
+    }
+
+    .card-content {
+      padding: 20px;
+    }
+
+    .card-title {
+      font-size: 18px;
+      font-weight: bold;
+      margin: auto;
+    }
+
+    .card-description {
+      font-size: 14px;
+      color: #666;
+      margin-top: 10px;
+    }
+
+    /* Style for message box */
+    #message-box {
+      background-color: #e0e0e0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 10px;
+      margin-top: 10px;
+      display: none;
+    }
+
+    .form2 {
+
+      
+      padding: 20px;
+      position: absolute;
+      top: 5px; 
+      left:10px;
+
+      }
+
+  </style>
+</head>
+
+<body>
+<!-- The menu bar -->
+<nav class="navbar">
+  <a class="brand" href="{% url 'home' %}"><img src="https://cdn-icons-png.flaticon.com/128/2782/2782163.png" style="width: 50px; height: 50px;"></a>
+  <ul>
+      <li>
+          <a href="{% url 'home' %}">Analyzer</a>
+      </li>
+      <li>
+          <a href="{% url 'aboutus' %}">About</a>
+      </li>
+      {% if user.is_authenticated %}
+      <li>
+          <a href="{% url 'services' %}">Services</a>
+      </li>
+      {% if is_premium %}
+      <li>
+        <a href="{% url 'summarize_pdf' %}">Premium Services</a>
+      </li>
+      {%else%}
+      <li>
+        <a href="{% url 'payment' %}">Premium Services</a>
+      </li>
+      {%endif%}
+      {% else %}
+      <li>
+          <a href="#" onclick="alert('Please sign in to access this page.'); return false;">Services</a>
+      </li>
+      {% endif %}
+      <li>
+          <a href="{% url 'contact' %}">Contact</a>
+      </li>
+      <li>
+          <a href="{% url 'login' %}">Login</a>
+      </li>
+
+  </ul>
+  <!--Icons or Right-->
+  <div style="margin-left: auto; padding: 15px; display: flex; align-items: center;">
+      
+      <div style="display: flex; align-items: center;">
+        {% if user.is_superuser %} <!--Django for admin-->
+          <a class="" href="{% url 'admin:index' %}" style="padding: 10px;"><img src="https://cdn-icons-png.flaticon.com/128/3281/3281355.png" style="width: 50px; height: 50px;"></a>
+          {% endif %}
+          {% if user.is_authenticated %}<!--Django for Welcome user and logout-->
+          <p style="padding: 10px; margin: 0; font-weight: bold;">Hello {{user.username}}</p>
+          <a class="" href="{% url 'logout' %}" style="padding: 10px;"><img src="https://cdn-icons-png.flaticon.com/128/12518/12518367.png" style="width: 50px; height: 50px;"></a>
+          {%endif%}
+      </div>
+      
+      <a class="" href="#" style="padding: 10px;"><img src="https://cdn-icons-png.flaticon.com/128/2318/2318736.png" style="width: 50px; height: 50px;"></a>
+      <a class="" href="#" style="padding: 10px;"><img src="https://cdn-icons-png.flaticon.com/128/1162/1162914.png" style="width: 50px; height: 50px;"></a>
+      <a class="" href="#" style="padding: 10px;"><img src="https://cdn-icons-png.flaticon.com/128/2041/2041814.png" style="width: 50px; height: 50px;"></a>
+      <a class="" href="#" style="padding: 10px;"><img src="https://cdn-icons-png.flaticon.com/128/1055/1055644.png" style="width: 50px; height: 50px;"></a>
+  </div>
+</nav>
+
+
+
+    
+  <div style="border: solid 0px;"> 
+    <!-- Tools Forest -->
+    <div style="position: relative; text-align: center; width: 100%;">
+      <h1 style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1; color: white; font-size: 2.5em; font-family: 'Times New Roman', Times, serif; font-size: 80px;">Forest Tools</h1>
+      <img src="https://www.bing.com/th/id/OGC.3182e579d9e985daa8168ea729da7cba?pid=1.7&rurl=https%3a%2f%2fwallpapercave.com%2fwp%2fwp2763910.gif&ehk=kIlTJYMJe%2bb%2bXtFrMFfgQFhCNonkZKMCuXUByGdbBVQ%3d" width="100%" height="300px" style="object-fit: cover;">
+    </div>
+  
+    <!-- User Help Functions -->
+    <div style="padding: 5px; width: 100%; height: 50px; font-family: 'Times New Roman', Times, serif;background-color: #615EFC ; color: white; display: flex; align-items: center; justify-content: space-between;">
+    
+      <!-- FAVOURITE -->
+      <h3 style="padding: 10px; margin: 10px; font-size: 30px;">MY FAVOURITE <a href="{% url 'view-fav' %}"><img src="https://cdn-icons-png.flaticon.com/128/1828/1828614.png"  style="width: 30px; height: 30px;"></a></h3>
+  
+      <!-- Search Bar -->
+      <form method="GET" action="{% url 'search_service' %}" style="display: flex; align-items: center;">
+        <input type="text" name="q" value="{{ query }}" placeholder="Search services..." style="height: 40px; width: 300px; border-radius: 30px; padding-left: 10px;" required>
+        <input type="image" src="https://cdn-icons-png.flaticon.com/128/107/107122.png" alt="Search" style="width: 30px; height: 30px; border-radius: 50%; margin-left: -41px;">
+      </form>
+  
+      <!-- Filter -->
+      <form method="GET" action="{% url 'service_filter' %}" style="display: flex; align-items: center; margin: 10px;">
+        <label for="category" style="color: white; font-size: large; padding: 10px; margin: 10px;"><p style="font-weight: bolder; font-size: 30px;">Category:</p></label>
+        <select name="category" id="category" class="button2" style="margin: 10px;">
+          <option value="">All</option>
+          <option value="DataAnalysis">DataAnalysis</option>
+          <option value="DataScience">DataScience</option>
+          <option value="AI">AI</option>
+          <option value="Other">Other</option>
+        </select>
+        <input type="submit" value="Filter" class="button2" style="margin: 10px;">
+      </form>
+    </div>
+  </div>
+  
+  
+
+  <br><br>
+
+
+  <div class="container">
+    {% for service in services %}
+    <div class="card">
+      <div style="position: relative;"> <!-- For Fav Button-->
+        <img src="https://th.bing.com/th/id/OIP.ehs4IycJE7D36jLXx_5I9AHaEO?rs=1&pid=ImgDetMain" alt="Product 1">
+        {% if service.is_favorite %}
+        <form class="form2" action="{% url 'remove_from_fav' service_id=service.id %}" method="post" >
+          {% csrf_token %}
+          <input type="hidden" name="service_id" value="{{ service.id }}">
+          <input type="image" src="https://cdn-icons-png.flaticon.com/128/263/263417.png" style="width: 30px; height: 30px;" alt="Add to Favorites" onclick="submitForm('add-to-fav-form-{{ service.id }}')">
+        </form>
+
+
+        {% else %} <!--For un Fav Button-->
+
+
+        <form class="form2" id="add-to-fav-form-{{ service.id }}" action="{% url 'add_to_fav' service_id=service.id %}" method="post">
+          {% csrf_token %}
+          <input type="hidden" name="service_id" value="{{ service.id }}">
+          <input type="image" src="https://cdn-icons-png.flaticon.com/128/10037/10037207.png" style="width: 30px; height: 30px;" alt="Add to Favorites" onclick="submitForm('add-to-fav-form-{{ service.id }}')">
+        </form>
+        {% endif %}
+
+
+
+      </div>
+      <div class="card-content">
+        <h2 class="card-title" style="color: blueviolet; "><a  href="{{ service.url }}">{{ service.title }}</a></h2>
+        <h5 style="font-family:cursive;">{{ service.category}}</h5>
+        <p class="card-description">{{ service.description }}</p>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  
+
+
+
+
+
+
+
+
+
+
+
+<br><br>
+<!--FOOTER Code-->
+
+
+<footer class="footer">
+  <div class="container_footer">
+    <div class="row">
+      <div class="footer-col">
+        <h4>Analyzer</h4>
+        <ul>
+          <li><a href="#">about us</a></li>
+          <li><a href="#">our services</a></li>
+          <li><a href="#">privacy policy</a></li>
+          <li><a href="#">affiliate program</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>get help</h4>
+        <ul>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Work with us</a></li>
+          <li><a href="#">returns</a></li>
+          <li><a href="#">order status</a></li>
+          
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Tools</h4>
+        <ul>
+          <li><a href="#">About tools</a></li>
+          <li><a href="#">What we do ?</a></li>
+          <li><a href="#">did we save your data ?</a></li>
+          <li><a href="#">Security of your data</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Follow Us</h4>
+        <ul style="display: flex; margin:10px ;">
+          <li style="margin:10px ;"><a href="#"><img src="https://cdn-icons-png.flaticon.com/128/1312/1312139.png" width="30px" height="30px"></a></li>
+          <li style="margin:10px ;"><a href="#"><img src="https://cdn-icons-png.flaticon.com/128/3955/3955024.png" width="30px" height="30px"></a></li>
+          <li style="margin:10px ;"><a href="#"><img src="https://cdn-icons-png.flaticon.com/128/1377/1377213.png" width="30px" height="30px"></a></li>
+          <li style="margin:10px ;"><a href="#"><img src="https://cdn-icons-png.flaticon.com/128/5969/5969020.png" width="30px" height="30px"></a></li>
+        </ul>
+
+
+      
+    </div>
+  </div>
+</footer>
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,131 @@
+{% load static %} <!--to show css from django-->
+<html>
+
+
+  <head>
+    <link rel="stylesheet" type="text/css" href="{% static 'css.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap">
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/128/2782/2782163.png" type="image/x-icon">
+    <style>
+
+    </style>
+  </head>
+
+<body > 
+
+ <!-- The menu bar -->
+    <!-- The menu bar -->
+    <nav class="navbar">
+      <a class="brand" href="{% url 'home' %}"><img src="https://cdn-icons-png.flaticon.com/128/2782/2782163.png" style="width: 50px; height: 50px;"></a>
+      <ul>
+          <li>
+              <a href="{% url 'home' %}">Analyzer</a>
+          </li>
+          <li>
+              <a href="{% url 'aboutus' %}">About</a>
+          </li>
+          {% if user.is_authenticated %}
+          <li>
+              <a href="{% url 'services' %}">Services</a>
+          </li>
+          {% if is_premium %}
+          <li>
+            <a href="{% url 'summarize_pdf' %}">Premium Services</a>
+          </li>
+          {%else%}
+          <li>
+            <a href="{% url 'payment' %}">Premium Services</a>
+          </li>
+          {%endif%}
+          {% else %}
+          <li>
+              <a href="#" onclick="alert('Please sign in to access this page.'); return false;">Services</a>
+          </li>
+          {% endif %}
+          <li>
+              <a href="{% url 'contact' %}">Contact</a>
+          </li>
+          <li>
+              <a href="{% url 'login' %}">Login</a>
+          </li>
+
+      </ul>
+      <!--Icons or Right-->
+      <div style="margin-left: auto; padding: 15px; display: flex; align-items: center;">
+          
+          <div style="display: flex; align-items: center;">
+            {% if user.is_superuser %} <!--Django for admin-->
+              <a class="" href="{% url 'admin:index' %}" style="padding: 10px;"><img src="https://cdn-icons-png.flaticon.com/128/3281/3281355.png" style="width: 50px; height: 50px;"></a>
+              {% endif %}
+              {% if user.is_authenticated %}<!--Django for Welcome user and logout-->
+              <p style="padding: 10px; margin: 0; font-weight: bold;">Hello {{user.username}}</p>
+              <a class="" href="{% url 'logout' %}" style="padding: 10px;"><img src="https://cdn-icons-png.flaticon.com/128/12518/12518367.png" style="width: 50px; height: 50px;"></a>
+              {%endif%}
+          </div>
+          
+          <a class="" href="#" style="padding: 10px;"><img src="https://cdn-icons-png.flaticon.com/128/2318/2318736.png" style="width: 50px; height: 50px;"></a>
+          <a class="" href="#" style="padding: 10px;"><img src="https://cdn-icons-png.flaticon.com/128/1162/1162914.png" style="width: 50px; height: 50px;"></a>
+          <a class="" href="#" style="padding: 10px;"><img src="https://cdn-icons-png.flaticon.com/128/2041/2041814.png" style="width: 50px; height: 50px;"></a>
+          <a class="" href="#" style="padding: 10px;"><img src="https://cdn-icons-png.flaticon.com/128/1055/1055644.png" style="width: 50px; height: 50px;"></a>
+      </div>
+  </nav>
+  
+  
+  
+    <!--Work Space-->
+    <div style="display: flex; padding: 10px;">
+      
+      <!--Notes-->
+      <div class="notes">
+        <h3>Note:</h3>
+        <div style="margin: 10px; font-size: 20px;"><p>1-Weekly hours is how much time you spending on study this topic</p></div>
+        <div style="margin: 10px; font-size: 20px;"><p>2-Difficulty scale is how much hard this topic</p></div>
+        <div style="margin: 10px; font-size: 20px;"><p>3-Self Rating is how much your confidance in yourself for this topic </p></div>
+        
+      <!--Test For Notes-->  
+
+      
+      
+      </div>
+
+
+
+      <!--the form template-->
+      <form method="POST" action="{% url 'predict_success' %}" class="formTools" style="width: 400px;">
+        {% csrf_token %}
+        <label for="weekly_hours">Weekly Hours:</label>
+        <input type="number" name="weekly_hours" required>
+        <br>
+        <label for="difficulty_scale">Difficulty Scale:</label>
+        <input type="number" name="difficulty_scale" required>
+        <br>
+        <label for="self_rating">Self Rating:</label>
+        <input type="number" name="self_rating" required>
+        <br>
+        <button type="submit">Predict</button>
+      </form>
+    </div>
+
+    <!--Here is that the return response for the code from python using django synatx-->
+    <div style="align-items: center; text-align: center; margin-top: 30px;">
+      <h1>The Result Will Show Below <img src="https://cdn-icons-png.flaticon.com/128/8997/8997995.png" style="width: 50px; height: 50px;"></h1>
+      <hr><br><br>
+    {% if predicted_success_percentage %}
+      
+      
+      {% if graph_image %}
+     <img src="data:image/png;base64,{{ graph_image }}" alt="Graph" />
+      {% endif %}
+      <br><br>
+      <h1>Predicted success percentage: {{ predicted_success_percentage|floatformat:2 }}%</h1>
+      <h3 style="margin: 10px;">Thats Just a Ai Predection ,You Can make the impossible, Trust Your self</h3>
+    {% endif %}
+
+    </div>
+
+
+
+    
+</body>
+</html>

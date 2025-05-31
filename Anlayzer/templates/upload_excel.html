@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload Excel File</title>
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/128/2782/2782163.png" type="image/x-icon">
+</head>
+<body>
+    <h2>Upload Excel File</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="excel_file"> <!-- Ensure the name attribute is "excel_file" -->
+        <label for="column_names">Column Names (comma-separated):</label>
+        <input type="text" name="column_names" id="column_names">
+        <button type="submit">Submit</button>
+    </form>
+    
+
+    {% if predicted_values %}
+    <h2>Prediction Result</h2>
+    <h3>Predicted Values:</h3>
+    <ul>
+    {% for value in predicted_values %}
+        <li>{{ value }}</li>
+    {% endfor %}
+    </ul>
+    <h3>Regression Plot:</h3>
+    <img src="data:image/png;base64,{{ graph_image }}" alt="Regression Plot">
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,238 @@
+{% load static %} <!--to show css from django-->
+<html>
+
+
+  <head>
+    <link rel="stylesheet" type="text/css" href="{% static 'css.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap">
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/128/2782/2782163.png" type="image/x-icon">
+    <style>
+      .text {
+        color: #fcfdff;
+        background-color: #26355D;
+        font-size: 50px;
+        padding: 8px 12px;
+        position: center;
+        bottom: 8px;
+        width: 100%;
+        text-align: center;
+        font-family: 'Work Sans', sans-serif;
+      }
+
+      .card {
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+        transition: 0.3s;
+        width: 20%;
+        margin: 20px;
+        border-radius: 20px;
+        border:solid 1px;
+        background-color: #fcfdff;
+      }
+
+      .card:hover {
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+      }
+
+      .container {
+        padding: 2px 16px;
+      }
+
+      .StyleForUs {
+        background-color: rgb(107, 141, 204);
+
+      }
+
+      .text_for_wedo {
+        color: #fcfdff;
+        font-size: 50px;
+        padding: 8px 12px;
+        position: center;
+        bottom: 8px;
+        width: 100%;
+        text-align: center;
+        font-family: 'Work Sans', sans-serif;
+      }
+
+      .joinus{
+        background-color: #26355D;
+        margin: 0px;
+        width: auto;
+        height: 400px;
+        text-align: left;
+        font-family: 'Work Sans', sans-serif;
+        color: #fcfdff;
+        font-size: 30px;
+      }
+
+      
+      @media (max-width: 600px) {
+        .main {
+            border-radius: 0px;
+        }}
+        	/* Basic Reset */
+
+
+
+    </style>
+  </head>
+
+<body style="background-color:#FFF7FC;">
+   <!-- The menu bar -->
+   <nav class="navbar">
+    <a class="brand" href="{% url 'home' %}"><img src="https://cdn-icons-png.flaticon.com/128/2782/2782163.png" style="width: 50px; height: 50px;"></a>
+    <ul>
+        <li>
+            <a href="{% url 'home' %}">Analyzer</a>
+        </li>
+        <li>
+            <a href="{% url 'aboutus' %}">About</a>
+        </li>
+        {% if user.is_authenticated %}
+        <li>
+            <a href="{% url 'services' %}">Services</a>
+        </li>
+        {% if is_premium %}
+        <li>
+          <a href="{% url 'summarize_pdf' %}">Premium Services</a>
+        </li>
+        {%else%}
+        <li>
+          <a href="{% url 'payment' %}">Premium Services</a>
+        </li>
+        {%endif%}
+        {% else %}
+        <li>
+            <a href="#" onclick="alert('Please sign in to access this page.'); return false;">Services</a>
+        </li>
+        {% endif %}
+        <li>
+            <a href="{% url 'contact' %}">Contact</a>
+        </li>
+        <li>
+            <a href="{% url 'login' %}">Login</a>
+        </li>
+
+    </ul>
+    <!--Icons or Right-->
+    <div style="margin-left: auto; padding: 15px; display: flex; align-items: center;">
+        
+        <div style="display: flex; align-items: center;">
+          {% if user.is_superuser %} <!--Django for admin-->
+            <a class="" href="{% url 'admin:index' %}" style="padding: 10px;"><img src="https://cdn-icons-png.flaticon.com/128/3281/3281355.png" style="width: 50px; height: 50px;"></a>
+            {% endif %}
+            {% if user.is_authenticated %}<!--Django for Welcome user and logout-->
+            <p style="padding: 10px; margin: 0; font-weight: bold;">Hello {{user.username}}</p>
+            <a class="" href="{% url 'logout' %}" style="padding: 10px;"><img src="https://cdn-icons-png.flaticon.com/128/12518/12518367.png" style="width: 50px; height: 50px;"></a>
+            {%endif%}
+        </div>
+        
+        <a class="" href="#" style="padding: 10px;"><img src="https://cdn-icons-png.flaticon.com/128/2318/2318736.png" style="width: 50px; height: 50px;"></a>
+        <a class="" href="#" style="padding: 10px;"><img src="https://cdn-icons-png.flaticon.com/128/1162/1162914.png" style="width: 50px; height: 50px;"></a>
+        <a class="" href="#" style="padding: 10px;"><img src="https://cdn-icons-png.flaticon.com/128/2041/2041814.png" style="width: 50px; height: 50px;"></a>
+        <a class="" href="#" style="padding: 10px;"><img src="https://cdn-icons-png.flaticon.com/128/1055/1055644.png" style="width: 50px; height: 50px;"></a>
+    </div>
+</nav>
+
+
+
+
+  <div style="text-align: center;" >
+    <h1 style="font-size: 70px;   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;" >About Us <img src="https://cdn-icons-png.flaticon.com/128/1256/1256650.png" width="70px" height="70px"></h1>
+</div>
+      
+
+<center>
+<div style="width: 70%;margin: 40px; background-color: #eee5cd; display: flex; height: 700px;">
+<img src="https://cdn.dribbble.com/users/1068771/screenshots/14225432/media/0da8c461ba3920a8c827d864a6e051ed.jpg" width="700px" height="700px" >
+    
+
+    <div style="margin:30px;padding: 10px;" >
+        <h1 style="font-size: 70px;   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Analyzer Team</h1>
+        <h3 >Our Mission</h3>
+        <p style="margin: 40px; text-align: left; font-size: 30px; font-family: Georgia, 'Times New Roman', Times, serif;">At Analyzer, our mission is to empower researchers, educators, and academic institutions by providing state-of-the-art tools and insights that elevate the quality and impact of their work. We believe that access to sophisticated data analysis should be a cornerstone of academic excellence, and we are dedicated to offering solutions that support rigorous research and scholarly inquiry.</p>
+    </div>
+
+
+
+</div>
+
+</center>
+
+<center>
+    <div style="width: 70%;margin: 40px; background-color: #eee5cd; display: flex; height: 700px; ">
+        
+        
+    
+        <div style="margin:10px;padding: 10px;" >
+            <h1 style="font-size: 70px;   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Why Analyzer is Your Best Tool ?</h1>
+            <p style="margin: 40px; text-align: left; font-size: 30px; font-family: Georgia, 'Times New Roman', Times, serif;">Academic Expertise: Our solutions are designed with the academic community in mind, offering tools that enhance the depth and rigor of your research.</p>
+            
+            <p style="margin: 40px; text-align: left; font-size: 30px; font-family: Georgia, 'Times New Roman', Times, serif;">Innovative Technology: We continually update our platform with the latest advancements in AI and data analysis to ensure you have access to the most effective tools available.</p>
+            <p style="margin: 40px; text-align: left; font-size: 30px; font-family: Georgia, 'Times New Roman', Times, serif;">Commitment to Integrity: We uphold the highest standards of data integrity and transparency, ensuring that your research is supported by reliable and accurate insights.</p>
+
+            
+        </div>
+
+        <img src="{% static 'C:\Users\kataw1\Anlayzer\static\Untitled-3.png' %}" alt="My image" width="700px" height="700px">
+    
+    
+    
+    </div>
+    
+    </center>
+
+
+
+
+    <br><br>
+    <!--FOOTER Code-->
+    
+    
+    <footer class="footer">
+      <div class="container_footer">
+        <div class="row">
+          <div class="footer-col">
+            <h4>Analyzer</h4>
+            <ul>
+              <li><a href="#">about us</a></li>
+              <li><a href="#">our services</a></li>
+              <li><a href="#">privacy policy</a></li>
+              <li><a href="#">affiliate program</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>get help</h4>
+            <ul>
+              <li><a href="#">FAQ</a></li>
+              <li><a href="#">Work with us</a></li>
+              <li><a href="#">returns</a></li>
+              <li><a href="#">order status</a></li>
+              
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Tools</h4>
+            <ul>
+              <li><a href="#">About tools</a></li>
+              <li><a href="#">What we do ?</a></li>
+              <li><a href="#">did we save your data ?</a></li>
+              <li><a href="#">Security of your data</a></li>
+            </ul>
+          </div>
+    
+          <div class="footer-col">
+            <h4>Follow Us</h4>
+            <ul style="display: flex; margin:10px ;">
+              <li style="margin:10px ;"><a href="#"><img src="https://cdn-icons-png.flaticon.com/128/1312/1312139.png" width="30px" height="30px"></a></li>
+              <li style="margin:10px ;"><a href="#"><img src="https://cdn-icons-png.flaticon.com/128/3955/3955024.png" width="30px" height="30px"></a></li>
+              <li style="margin:10px ;"><a href="#"><img src="https://cdn-icons-png.flaticon.com/128/1377/1377213.png" width="30px" height="30px"></a></li>
+              <li style="margin:10px ;"><a href="#"><img src="https://cdn-icons-png.flaticon.com/128/5969/5969020.png" width="30px" height="30px"></a></li>
+            </ul>
+    
+    
+          
+        </div>
+      </div>
+    </footer>
+</body>
