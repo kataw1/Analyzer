@@ -23,30 +23,6 @@ By using modern AI tools and frameworks, Analyzer aims to reduce the manual effo
 - **Pandas / NumPy** - Data analysis and preprocessing
 - **Scikit-learn / TensorFlow / Other AI tools** - Prediction and ML models
 - **PostgreSQL / SQLite** - Database management
-- **Docker** *(optional)* - Containerization
 
----
 
-## 📦 Features
 
-- Start and manage interactive game sessions (for testing API features)
-- Perform statistical operations on uploaded or generated data
-- Predict future trends using machine learning models
-- Generate academic insights from structured data
-- RESTful APIs for integration with frontend or mobile apps
-
----
-
-## 🧪 Testing the API
-
-Automated test cases using Django REST Framework are available to validate:
-
-- Game initialization
-- Answer submission and progression
-- Game termination and result summary
-- Error handling and edge cases
-
-To run tests:
-
-```bash
-python manage.py test
